@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .workout_exercises import workout_exercises
 
 
 
@@ -13,6 +14,12 @@ class Workout(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='workouts')
+
+    exercises = db.relationship(
+        'Exercise',
+        secondary=workout_exercises,
+        back_populates='workouts'
+    )
 
 
     def to_dict(self):

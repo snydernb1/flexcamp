@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .workout_exercises import workout_exercises
 
 
 class Exercise(db.Model):
@@ -8,7 +9,7 @@ class Exercise(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(40), nullable=False)
     muscle_group = db.Column(db.String(20), nullable=False)
     exercise_type = db.Column(db.String(20), nullable=False)
     body_weight = db.Column(db.Boolean, nullable=False)
@@ -17,6 +18,12 @@ class Exercise(db.Model):
 
     user = db.relationship('User', back_populates='exercises')
     sets = db.relationship('ExerciseSet', back_populates='exercise')
+
+    workouts = db.relationship(
+        'Exercise',
+        secondary=workout_exercises,
+        back_populates='exercises'
+    )
 
 
     def to_dict(self):
