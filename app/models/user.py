@@ -11,8 +11,17 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
+    first_name = db.Column(db.String(40), nullable=False)
+    last_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    bench_pr = db.Column(db.Integer)
+    squat_pr = db.Column(db.Integer)
+    deadlift_pr = db.Column(db.Integer)
+    dark_mode = db.Column(db.Boolean)
+
+    workouts = db.relationship('Workout', back_populates='user')
+    exercises = db.relationship('Exercise', back_populates='user')
 
     @property
     def password(self):
@@ -29,5 +38,11 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'bench_pr': self.bench_pr,
+            'squat_pr': self.squat_pr,
+            'deadlift_pr': self.deadlift_pr,
+            'dark_mode': self.dark_mode
         }
