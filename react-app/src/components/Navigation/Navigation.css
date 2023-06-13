@@ -1,5 +1,27 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.navItems {
+  text-decoration: none;
+  font-style: normal;
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 2em 2em 1em 2em;
+  border-bottom: 1px solid black;
+}
+
 .profile-dropdown {
   position: absolute;
+  right: 5em;
+  background-color: grey;
 }
 
 .hidden {
