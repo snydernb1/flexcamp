@@ -8,5 +8,29 @@ def seed_workouts(all_exercises):
     wk_one = Workout(
         date=datetime.datetime(2023, 6, 5, 5, 30, 0),
         user_id=1,
-        exercises=[]
+        exercises=[all_exercises[0], all_exercises[3], all_exercises[4],]
     )
+    wk_two = Workout(
+        date=datetime.datetime(2023, 6, 7, 5, 30, 0),
+        user_id=1,
+        exercises=[all_exercises[1], all_exercises[2], all_exercises[6],]
+    )
+    wk_three = Workout(
+        date=datetime.datetime(2023, 6, 9, 5, 30, 0),
+        user_id=1,
+        exercises=[all_exercises[0], all_exercises[3], all_exercises[4],]
+    )
+
+    all_workouts = [wk_one, wk_two, wk_three]
+
+    [db.session.add(workout) for workout in all_workouts]
+    db.session.commit()
+
+
+def undo_workouts():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.workouts RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM workouts"))
+
+    db.session.commit()
