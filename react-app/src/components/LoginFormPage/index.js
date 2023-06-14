@@ -15,6 +15,8 @@ function LoginFormPage() {
   const [username, setUsername] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const [errors, setErrors] = useState([]);
 
@@ -28,11 +30,15 @@ function LoginFormPage() {
     }
   };
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('cbum@gmail.com', 'password'));
+  }
 
   const handleSubmitSignup = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, password));
+    if (signupPassword === confirmPassword) {
+        const data = await dispatch(signUp(username, signupEmail, signupPassword, firstName, lastName));
         if (data) {
           setErrors(data)
         }
@@ -50,6 +56,8 @@ function LoginFormPage() {
     setSignupPassword("")
     setUsername("")
     setConfirmPassword("")
+    setFirstName("")
+    setLastName("")
   }
 
   return (
@@ -65,7 +73,7 @@ function LoginFormPage() {
           <h1 className="loginHeader">Flexcamp</h1>
 
           {signUpToggle ? (
-
+            // LOGIN FORM
             <form onSubmit={handleSubmitLogin} className="loginForm">
               <ul>
                 {errors.map((error, idx) => (
@@ -76,25 +84,28 @@ function LoginFormPage() {
               <input
                 className="loginInput"
                 type="text"
-                value={signupEmail}
+                value={email}
                 placeholder="Email"
-                onChange={(e) => setSignupEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
 
               <input
                 className="loginInput"
                 type="password"
-                value={signupPassword}
+                value={password}
                 placeholder="Password"
-                onChange={(e) => setSignupPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
 
               <button type="submit" className="loginInput" id="loginButton">Log In</button>
+
+              <button className="loginInput" id="loginButton" onClick={demoLogin}>Demo User Log In</button>
             </form>
           )
             :
+            // SIGN UP FORM
             (
               <form onSubmit={handleSubmitSignup} className="loginForm">
                 <ul>
@@ -103,10 +114,10 @@ function LoginFormPage() {
 
                   <input
                     type="text"
-                    value={email}
+                    value={signupEmail}
                     className="loginInput"
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setSignupEmail(e.target.value)}
                     required
                   />
 
@@ -120,11 +131,29 @@ function LoginFormPage() {
                   />
 
                   <input
+                    type="text"
+                    value={firstName}
+                    className="loginInput"
+                    placeholder="First Name"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+
+                  <input
+                    type="text"
+                    value={lastName}
+                    className="loginInput"
+                    placeholder="Last Name"
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+
+                  <input
                     type="password"
-                    value={password}
+                    value={signupPassword}
                     className="loginInput"
                     placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setSignupPassword(e.target.value)}
                     required
                   />
 
@@ -138,6 +167,7 @@ function LoginFormPage() {
                   />
 
                 <button type="submit"  className="loginInput" id="loginButton">Sign Up</button>
+                <button className="loginInput" id="loginButton" onClick={demoLogin}>Demo User Log In</button>
               </form>
             )
           }
