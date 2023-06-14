@@ -5,6 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import ActivityCalenderComp from './components/ActivityCalender';
 
 function App() {
   const dispatch = useDispatch();
@@ -17,15 +18,14 @@ function App() {
   return (
     <>
       {sessionUser !== null ? (
-        <Switch>
-          <Navigation isLoaded={isLoaded} />
-          <Route path="/" >
-            <LoginFormPage />
+        <Route path="/home" >
+        <Navigation isLoaded={isLoaded} />
+        <ActivityCalenderComp />
+        {/* <Switch> */}
+
           </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-        </Switch>
+
+      // </Switch>
       ) : (
       <Route path="/" >
         <LoginFormPage />

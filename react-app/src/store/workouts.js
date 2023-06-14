@@ -23,12 +23,24 @@ export const fetchAllWorkouts = () => async (dispatch) => {
 	};
 };
 
-initialState = {}
+const initialState = {workouts: {}}
 
 export default function reducer(state = initialState, action) {
+
+    let workoutState;
+
     switch (action.type) {
         case ALL_WORKOUTS:
-            return state
+            const workoutData = action.workouts
+
+            workoutState = {...state, workouts: {...state.workouts}}
+
+            workoutData.forEach(workout => {
+                const date = Date.parse(workout.date)
+                workoutState.workouts[date] = workout
+            });
+
+            return workoutState
         default:
             return state
     };

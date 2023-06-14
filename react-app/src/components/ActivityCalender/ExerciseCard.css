@@ -1,0 +1,10 @@
+.exerciseLabels {
+    display: flex;
+    gap: 1em;
+}
+
+.exerciseSets {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

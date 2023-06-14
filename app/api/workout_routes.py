@@ -14,8 +14,7 @@ def all_routes():
     '''
 
     user = current_user
-    user_data = user.to_dict()
-    user_data['workouts'] = []
+    user_workout_data = []
 
     date = datetime.datetime(2023, 6, 5, 5, 30, 0)
 
@@ -36,6 +35,6 @@ def all_routes():
             workout_data['exercises'].append(exercise_data)
 
 
-        user_data['workouts'].append(workout_data)
+        user_workout_data.append(workout_data)
 
-    return user_data
+    return user_workout_data
