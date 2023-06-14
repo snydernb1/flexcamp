@@ -7,6 +7,8 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 
+
+
 	return (
 		<ul className='navbar'>
 			<li className='navItems'>
