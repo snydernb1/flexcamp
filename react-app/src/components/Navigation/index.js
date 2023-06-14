@@ -7,10 +7,12 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 
+
+
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/">Home</NavLink>
+		<ul className='navbar'>
+			<li className='navItems'>
+				<NavLink exact to="/" className='navItems'>Home</NavLink>
 			</li>
 			{isLoaded && (
 				<li>

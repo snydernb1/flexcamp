@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     dark_mode = db.Column(db.Boolean)
 
     workouts = db.relationship('Workout', back_populates='user')
-    exercises = db.relationship('Exercise', back_populates='user')
+    user_exercises = db.relationship('Exercise', back_populates='user')
 
     @property
     def password(self):
