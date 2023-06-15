@@ -10,6 +10,7 @@ export default function WorkoutCard ({workout}) {
 
     return (
         <div className="workoutCard">
+            <p>{workout.date}</p>
             {exercises.map((exercise)=> (
                 <ExerciseCard
                 exercise={exercise}

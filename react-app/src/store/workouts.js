@@ -37,6 +37,8 @@ export default function reducer(state = initialState, action) {
 
             workoutData.forEach(workout => {
                 const date = Date.parse(workout.date)
+                const newDate = new Date(Number(date))
+                workout.date = newDate
                 workoutState.workouts[date] = workout
             });
 

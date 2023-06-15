@@ -12,7 +12,53 @@ function ActivityCalenderComp () {
     const workoutKeys = Object.keys(workoutsObj)
     const workoutVals = Object.values(workoutsObj)
 
-    const latestWorkouts = workoutVals.slice((workoutVals.length - 1) - 6)
+    const latestWorkouts = []
+    // const latestWorkouts = workoutVals.slice((workoutVals.length - 1) - 6)
+
+    const workoutCount = workoutVals.length - 1
+    let temp = new Date(Number(workoutKeys[workoutCount]))
+    let day = temp.toLocaleString('default', {day: '2-digit'})
+
+
+
+
+
+
+    for (let i = workoutVals.length - 1; i >= workoutCount-6; i--) {
+
+      let prevData = Date.parse(latestWorkouts[0]?.date)
+      let prevTemp = new Date(Number(prevData))
+      let prevDay = prevTemp.toLocaleString('default', {day: '2-digit'})
+      let prevMonth = prevTemp.toLocaleString('default', {month: '2-digit'})
+      let prevYear = prevTemp.toLocaleString('default', {year: 'numeric'})
+
+      console.log('Current Day', day)
+      console.log('Prev Day', prevDay)
+
+
+      if (i === workoutVals.length - 1) {
+        latestWorkouts.unshift(workoutVals[i])
+      } else if (Number(prevDay) - Number(day) === 1) {
+        latestWorkouts.unshift(workoutVals[i])
+        day = Number(day) + 1
+
+      } else {
+        let dateStr = `${prevYear}-${prevMonth}-${Number(prevDay) - 1}`
+        console.log(new Date(dateStr))
+
+        let blank = {date: new Date(dateStr)}
+        latestWorkouts.unshift(blank)
+      }
+
+      day = Number(day) - 1
+    }
+    console.log('this is latest workouts', latestWorkouts)
+
+
+
+
+
+
 
     const dates = [{
       date: '2023-01-01',
@@ -51,7 +97,7 @@ function ActivityCalenderComp () {
 
       <ActivityCalender
         data={dates}
-        eventHandler={{
+        eventHandlers={{
         onClick: event => activity => {
           console.log({ event, activity });
           alert(JSON.stringify(activity, null, 4));
@@ -63,9 +109,15 @@ function ActivityCalenderComp () {
         labels={{
           totalCount: "{{count}} workouts in {{year}}",
         }}
+
+        // renderBlock={(block, activity) => (
+        // <div className='blockDiv' title={`${activity.count} activities on ${activity.date}`}>
+        //     {block}
+        // </div>
+        // )}
       />
 
-      <div className='cards'>
+      {/* <div className='cards'>
         {latestWorkouts.map((workout)=> (
           <WorkoutCard
           workout={workout}
@@ -73,7 +125,7 @@ function ActivityCalenderComp () {
           />
         ))
         }
-      </div>
+      </div> */}
 
 
 
