@@ -38,8 +38,13 @@ export default function reducer(state = initialState, action) {
             workoutData.forEach(workout => {
                 const date = Date.parse(workout.date)
                 const newDate = new Date(Number(date))
-                workout.date = newDate
-                workoutState.workouts[date] = workout
+                let day = newDate.toLocaleString('default', {day: '2-digit'})
+                let month = newDate.toLocaleString('default', {month: '2-digit'})
+                let year = newDate.toLocaleString('default', {year: 'numeric'})
+                let strDate = `${year}-${month}-${day}`
+
+                workout.date = strDate
+                workoutState.workouts[strDate] = workout
             });
 
             return workoutState
