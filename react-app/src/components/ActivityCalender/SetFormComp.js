@@ -1,9 +1,21 @@
 import { useState } from "react"
 
-export default function SetFormComp ({}) {
+export default function SetFormComp ({date, setNum, exerciseId, submit}) {
     const [weight, setWeight] = useState("")
     const [reps, setReps] = useState("")
 
+    if (submit) {
+
+        const setData = {
+            set_number: setNum,
+            weight: weight,
+            reps: reps,
+            date: date,
+            exercise_id: exerciseId
+        }
+
+        console.log('Did submit work all the way down in setformcomp?', setData)
+    }
 
 
     return (

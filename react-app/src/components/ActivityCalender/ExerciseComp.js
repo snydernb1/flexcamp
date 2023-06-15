@@ -2,10 +2,10 @@ import { useState } from "react"
 import SetFormComp from "./SetFormComp"
 
 
-export default function ExerciseComp ({exercise}) {
+export default function ExerciseComp ({exercise, date, submit}) {
     const [count, setCount] = useState([1])
 
-    // console.log('exercise from exercise comp',exercise)
+    console.log('exercise from exercise comp',exercise.id)
 
     const addSet = () => {
         let setNum = count[count.length - 1]
@@ -30,7 +30,11 @@ export default function ExerciseComp ({exercise}) {
 
         {count.map((set)=> (
             <SetFormComp
-
+            date={date}
+            setNum={set}
+            exerciseId={exercise.id}
+            submit={submit}
+            key={set}
             />
         ))}
 

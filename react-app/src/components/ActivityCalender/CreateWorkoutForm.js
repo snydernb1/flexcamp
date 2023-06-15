@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllExercises } from "../../store/exercises"
+
 import ExerciseComp from "./ExerciseComp"
 
 
-export default function CreateWorkoutForm () {
+export default function CreateWorkoutForm ({date}) {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user);
     const exercisesObj = useSelector(state => state.exercises?.exercises)
     const [exerciseList, setExerciseList] = useState([])
     const [submit, setSubmit] = useState(false)
 
-    console.log('user exercises',exercisesObj)
     const exercises = Object.values(exercisesObj)
 
     useEffect(() => {
         dispatch(fetchAllExercises())
     }, [dispatch])
-
 
 
     const addExercise = (e) => {
@@ -30,9 +29,22 @@ export default function CreateWorkoutForm () {
         }
         setExerciseList([...exerciseList, exercise])
     }
-
+    // Handles submitting the workout
     const submitWorkout = () => {
         setSubmit(true)
+
+        const exerciseIds = []
+
+        for (let item of exerciseList) {
+            exerciseIds.push(exercisesObj[item].id)
+        }
+
+        const workoutData = {
+            date: date,
+            user_id: sessionUser.id,
+            exercises: exerciseIds
+        }
+        console.log(workoutData)
     }
 
 
@@ -80,6 +92,8 @@ export default function CreateWorkoutForm () {
                     <ExerciseComp
                     exercise={exercisesObj[selectedExercises]}
                     key={exercisesObj[selectedExercises]?.id}
+                    submit={submit}
+                    date={date}
                     />
                 </div>
             ))}

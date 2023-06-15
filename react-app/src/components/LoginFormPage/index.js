@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { login, signUp } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import './LoginForm.css';
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 
 function LoginFormPage() {
   const dispatch = useDispatch();

@@ -48,7 +48,7 @@ export default function WorkoutCard ({workout}) {
                 <OpenModalButton
                 buttonText="Add Workout"
                 onItemClick={closeMenu}
-                modalComponent={<CreateWorkoutForm />}
+                modalComponent={<CreateWorkoutForm date={workout.date} />}
                 />
             </div>
 
