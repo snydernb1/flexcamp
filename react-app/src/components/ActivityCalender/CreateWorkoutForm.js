@@ -9,6 +9,7 @@ export default function CreateWorkoutForm () {
     const sessionUser = useSelector(state => state.session.user);
     const exercisesObj = useSelector(state => state.exercises?.exercises)
     const [exerciseList, setExerciseList] = useState([])
+    const [submit, setSubmit] = useState(false)
 
     console.log('user exercises',exercisesObj)
     const exercises = Object.values(exercisesObj)
@@ -22,10 +23,18 @@ export default function CreateWorkoutForm () {
     const addExercise = (e) => {
         // e.preventDefault()
         let exercise = e.target.dataset.user
+        for (let item of exerciseList) {
+            if (item === exercise) {
+                return
+            }
+        }
         setExerciseList([...exerciseList, exercise])
     }
 
-    console.log('exerciseList', exerciseList)
+    const submitWorkout = () => {
+        setSubmit(true)
+    }
+
 
     // const addSet = (e) => {
     //     let exercise = e.target.dataset.user
@@ -45,6 +54,17 @@ export default function CreateWorkoutForm () {
     // }
     // console.log('this is the exercise list state',exerciseList)
 
+    const removeExercise = (e) => {
+        let exerciseItem = e.target.dataset.user
+        const newExerciseList = []
+        for (let exercise of exerciseList) {
+            if (exercise !== exerciseItem) {
+                newExerciseList.push(exercise)
+            }
+        }
+        setExerciseList([...newExerciseList])
+    }
+
     return (
         <>
             <h4>+ Add Exercise</h4>
@@ -52,11 +72,16 @@ export default function CreateWorkoutForm () {
                 <p onClick={addExercise} data-user={exercise.name}>{exercise.name}</p>
             ))}
 
+
             {exerciseList.map((selectedExercises) => (
-                <ExerciseComp
-                exercise={exercisesObj[selectedExercises]}
-                key={exercisesObj[selectedExercises]?.id}
-                />
+                <div>
+                    <button onClick={removeExercise} data-user={selectedExercises}>Remove Exercise</button>
+
+                    <ExerciseComp
+                    exercise={exercisesObj[selectedExercises]}
+                    key={exercisesObj[selectedExercises]?.id}
+                    />
+                </div>
             ))}
 
             {/* {exerciseList.map((selectedExercise) => (
@@ -70,6 +95,10 @@ export default function CreateWorkoutForm () {
                     <button onClick={addSet} data-user={Object.keys(selectedExercise)[0]}>AddSet</button>
                 </div>
             ))} */}
+
+            {exerciseList.length !== 0 &&
+            <button onClick={submitWorkout}>Finish Workout</button>
+            }
         </>
     )
 }

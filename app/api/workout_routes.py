@@ -16,8 +16,6 @@ def all_routes():
     user = current_user
     user_workout_data = []
 
-    date = datetime.datetime(2023, 6, 5, 5, 30, 0)
-
     workouts = Workout.query.filter(Workout.user_id == user.id).all()
 
     for workout in workouts:
