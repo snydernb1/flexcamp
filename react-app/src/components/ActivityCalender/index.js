@@ -27,9 +27,7 @@ function ActivityCalenderComp () {
       '12': 31,
     }
 
-
     const workoutKeys = Object.keys(workoutsObj) //These should be the string dates
-    const workoutVals = Object.values(workoutsObj)
 
     useEffect(() => {
       setSelectedDate(workoutKeys[workoutKeys.length - 1])
@@ -37,10 +35,6 @@ function ActivityCalenderComp () {
 
     const latestWorkouts = []
 
-    let workoutCount = workoutVals.length - 1
-
-    let prevDay;
-    let prevDate;
     // Old conditional to grab the latest 7 workouts - NOT USED
     // if (workoutCount !== -1) {
     //   while (latestWorkouts.length !== 7) {
@@ -87,7 +81,6 @@ function ActivityCalenderComp () {
     // }
 
 
-    console.log('This is the selected date....', selectedDate)
     // This gets the past 7 days based on selectedDate...
     const selectedDates = []
 
@@ -120,9 +113,6 @@ function ActivityCalenderComp () {
     // console.log('selectedDates ==>',selectedDates)
   }
 
-  console.log('selectedDates ==>',selectedDates)
-
-
     // This grabs the workout data based on past 7 selected days
     for (let date of selectedDates) {
       console.log(workoutsObj[date])
@@ -136,8 +126,6 @@ function ActivityCalenderComp () {
         latestWorkouts.push(blank)
       }
     }
-
-    console.log('latest workouts-->',latestWorkouts)
 
 
     // This is putting data into the calender based on the workout dates
@@ -161,7 +149,6 @@ function ActivityCalenderComp () {
       count: 0,
       level: 0
     })
-
 
 
 
