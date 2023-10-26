@@ -33,89 +33,48 @@ function ActivityCalenderComp () {
       setSelectedDate(workoutKeys[workoutKeys.length - 1])
     }, [workoutsObj])
 
-    const latestWorkouts = []
-
-    // Old conditional to grab the latest 7 workouts - NOT USED
-    // if (workoutCount !== -1) {
-    //   while (latestWorkouts.length !== 7) {
-
-    //     let nextLogDay;
-    //     let nextLogDayNum;
-
-    //     if (workoutKeys[workoutCount] !== undefined) {
-    //       nextLogDay = workoutKeys[workoutCount].split('-')
-    //       nextLogDayNum = Number(nextLogDay[2])
-    //     }
-
-    //     if (latestWorkouts.length === 0) {
-    //       latestWorkouts.unshift(workoutVals[workoutCount])
-    //       let temp = workoutKeys[workoutCount].split('-')
-    //       prevDay = Number(temp[2]) - 1
-    //       prevDate = workoutKeys[workoutCount]
-    //       workoutCount--
-
-
-    //     } else if (prevDay === nextLogDayNum) {
-    //       latestWorkouts.unshift(workoutVals[workoutCount])
-    //       let temp = workoutKeys[workoutCount].split('-')
-    //       prevDay = Number(temp[2]) - 1
-    //       prevDate = workoutKeys[workoutCount]
-    //       workoutCount--
-
-
-    //     } else {
-    //       let dateArr = prevDate.split('-')
-    //       let day = prevDay
-    //       let blank = {
-    //         date: `${dateArr[0]}-${dateArr[1]}-0${day}`,
-    //         exercises: null
-    //     }
-    //       latestWorkouts.unshift(blank)
-    //       prevDay = day - 1
-    //       prevDate = `${dateArr[0]}-${dateArr[1]}-${day}`
-
-    //     }
-    //   }
-
-    //   // console.log('this is latest workouts', latestWorkouts)
-    // }
-
 
     // This gets the past 7 days based on selectedDate...
     const selectedDates = []
-
     if (selectedDate !== undefined) {
 
-      selectedDates.unshift(selectedDate)
+      let i = 6
 
-      while (selectedDates.length !== 7) {
-        let currDate = selectedDates[0]
+      while (selectedDates.length !== 6) {
+        let currDate = selectedDate
         let dateArr = currDate.split('-')
-        let newDay = Number(dateArr[2]) - 1
+        let newDay = Number(dateArr[2]) - i
         let prevMonth = dateArr[1]
-        let prevDate = selectedDate
 
-      if (newDay !== 0) {
-        let newDayStr = `${newDay}`
-        let nextDate = `${dateArr[0]}-${dateArr[1]}-${newDayStr.length ===2 ? newDayStr: '0'+newDayStr}`
 
-        selectedDates.unshift(nextDate)
-        prevDate = nextDate
-      } else {
-        let newMonth = Number(prevMonth) - 1
-        let lastDay = months[`${newMonth}`]
-        let lastDayStr = `${lastDay}`
-        let newMonthStr = `${newMonth}`
+        if (newDay > 0) {
 
-        selectedDates.unshift(`${dateArr[0]}-${newMonthStr.length === 2? newMonth: '0' + newMonth}-${lastDayStr.length ===2 ? lastDay: '0'+lastDay}`)
-      }
+          let newDayStr = `${newDay}`
+          let nextDate = `${dateArr[0]}-${dateArr[1]}-${newDayStr.length ===2 ? newDayStr: '0'+newDayStr}`
+
+          selectedDates.push(nextDate)
+
+
+        } else {
+
+          let newMonth = Number(prevMonth) - 1 // 5
+          let lastDay = months[`${newMonth}`] - Math.abs(newDay)// 31
+          let lastDayStr = `${lastDay}` // 31 - 2
+          let newMonthStr = `${newMonth}`
+
+          selectedDates.push(`${dateArr[0]}-${newMonthStr.length === 2? newMonth: '0' + newMonth}-${lastDayStr.length ===2 ? lastDay: '0'+lastDay}`)
+        }
+
+        i--
+
     }
-    // console.log('selectedDates ==>',selectedDates)
+    selectedDates.push(selectedDate)
   }
 
+
+  const latestWorkouts = []
     // This grabs the workout data based on past 7 selected days
     for (let date of selectedDates) {
-      console.log(workoutsObj[date])
       if (workoutsObj[date] !== undefined) {
         latestWorkouts.push(workoutsObj[date])
       } else {
