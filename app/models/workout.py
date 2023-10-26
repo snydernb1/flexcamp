@@ -10,7 +10,7 @@ class Workout(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='workouts')

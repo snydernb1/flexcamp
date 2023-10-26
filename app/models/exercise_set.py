@@ -12,7 +12,7 @@ class ExerciseSet(db.Model):
     set_number = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer)
     reps = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.String(10), nullable=False)
     exercise_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('exercises.id')), nullable=False)
 
     exercise = db.relationship('Exercise', back_populates='sets')
