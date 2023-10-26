@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { login, signUp } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import './LoginForm.css';
+
 
 function LoginFormPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,12 +29,15 @@ function LoginFormPage() {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+    } else {
+      history.push('/home')
     }
   };
 
   const demoLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login('cbum@gmail.com', 'password'));
+    history.push('/home')
   }
 
   const handleSubmitSignup = async (e) => {
@@ -41,6 +46,8 @@ function LoginFormPage() {
         const data = await dispatch(signUp(username, signupEmail, signupPassword, firstName, lastName));
         if (data) {
           setErrors(data)
+        } else {
+          history.push('/home')
         }
     } else {
         setErrors(['Confirm Password field must be the same as the Password field']);

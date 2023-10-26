@@ -2,7 +2,7 @@ import SetCard from "./SetCard"
 import './ExerciseCard.css'
 
 export default function ExerciseCard ({exercise}) {
-    // console.log('workout from the workout card',workout)
+    // console.log('workout from the workout card',exercise)
 
     const sets = Object.values(exercise.sets)
     // console.log('workout from the workout card',sets)
@@ -10,6 +10,9 @@ export default function ExerciseCard ({exercise}) {
 
     return (
         <div>
+
+
+
             <h2>{exercise.name}</h2>
 
             <div className="exerciseLabels">

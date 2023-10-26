@@ -1,16 +1,60 @@
 import ExerciseCard from "./ExerciseCard"
+import CreateWorkoutForm from "./CreateWorkoutForm";
+import OpenModalButton from "../OpenModalButton";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import './WorkoutCard.css'
 
 export default function WorkoutCard ({workout}) {
-    // console.log('workout from the workout card',workout)
 
-    const exercises = Object.values(workout.exercises)
-    // console.log('workout from the workout card',exercises)
 
+    let exercises;
+    if (workout.exercises !== null) {
+        exercises = Object.values(workout.exercises)
+    }
+
+
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef();
+
+    const openMenu = () => {
+      if (showMenu) return;
+      setShowMenu(true);
+    };
+
+    useEffect(() => {
+      if (!showMenu) return;
+
+      const closeMenu = (e) => {
+        if (!ulRef.current.contains(e.target)) {
+          setShowMenu(false);
+        }
+      };
+
+      document.addEventListener("click", closeMenu);
+
+      return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
+
+    const closeMenu = () => setShowMenu(false);
 
     return (
         <div className="workoutCard">
-            {exercises.map((exercise)=> (
+            <p>{workout.date}</p>
+
+            {workout.exercises === null ?
+
+            <div>
+                <OpenModalButton
+                buttonText="Add Workout"
+                onItemClick={closeMenu}
+                modalComponent={<CreateWorkoutForm date={workout.date} />}
+                />
+            </div>
+
+            :
+
+            exercises.map((exercise)=> (
                 <ExerciseCard
                 exercise={exercise}
                 key={exercise.id}
