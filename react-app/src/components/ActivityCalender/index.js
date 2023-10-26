@@ -12,21 +12,24 @@ function ActivityCalenderComp () {
     const workoutKeys = Object.keys(workoutsObj)
     const workoutVals = Object.values(workoutsObj)
 
-    const latestWorkouts = workoutVals.slice((workoutVals.length - 1) - 6)
+    const latestWorkouts = workoutVals.slice((workoutVals.length - 1) - 6) // This grabs the latest 6 workouts to default to
 
-    const dates = [{
+
+
+    const dates = [{ // MIGHT NEED TO UPDATE THIS ENTRY IF USER HAS WORKOUT ON THE FIRST, THIS IS SETTING THE CONSTRAINTS OF THE CALENDER COMP
       date: '2023-01-01',
       count: 0,
       level: 0
     }];
 
     for (let date of workoutKeys) {
-      const temp = new Date(Number(date))
-      const year = temp.toLocaleString('default', {year: 'numeric'})
-      const month = temp.toLocaleString('default', {month: '2-digit'})
-      const day = temp.toLocaleString('default', {day: '2-digit'})
+      // const temp = new Date(Number(date))
+      // const year = temp.toLocaleString('default', {year: 'numeric'})
+      // const month = temp.toLocaleString('default', {month: '2-digit'})
+      // const day = temp.toLocaleString('default', {day: '2-digit'})
 
-      const newDate = `${year}-${month}-${day}`
+      // const newDate = `${year}-${month}-${day}`
+      const newDate = date
       const dateObj = {
         date: newDate,
         count: 1,
