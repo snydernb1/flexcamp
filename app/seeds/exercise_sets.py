@@ -2,9 +2,13 @@ from app.models import db, ExerciseSet, environment, SCHEMA
 from sqlalchemy.sql import text
 import datetime
 
-w_one_date = datetime.datetime(2023, 6, 5, 5, 30, 0)
-w_two_date = datetime.datetime(2023, 6, 7, 5, 30, 0)
-w_three_date = datetime.datetime(2023, 6, 9, 5, 30, 0)
+# w_one_date = datetime.datetime(2023, 6, 5, 5, 30, 0)
+# w_two_date = datetime.datetime(2023, 6, 7, 5, 30, 0)
+# w_three_date = datetime.datetime(2023, 6, 9, 5, 30, 0)
+
+w_one_date = "2023-06-04"
+w_two_date = "2023-06-06"
+w_three_date = "2023-06-08"
 
 def seed_sets():
     # User 1 (Chris)
