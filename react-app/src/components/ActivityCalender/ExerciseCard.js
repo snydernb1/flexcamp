@@ -5,6 +5,7 @@ export default function ExerciseCard ({exercise}) {
     // console.log('workout from the workout card',exercise)
 
     const sets = Object.values(exercise.sets)
+    // console.log('workout from the workout card',sets)
 
 
     return (

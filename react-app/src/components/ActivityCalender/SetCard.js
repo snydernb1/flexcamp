@@ -5,6 +5,7 @@ export default function SetCard ({set}) {
 
     // const sets = Object.values(exercise.sets)
 
+    // console.log('from setCard',set)
 
 
     return (

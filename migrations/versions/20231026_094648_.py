@@ -1,19 +1,16 @@
 """empty message
 
-Revision ID: 8a4c2134c82f
-Revises:
-Create Date: 2023-06-13 14:31:26.563123
+Revision ID: ff02ad6b4838
+Revises: 
+Create Date: 2023-10-26 09:46:48.375710
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '8a4c2134c82f'
+revision = 'ff02ad6b4838'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,8 +33,6 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     op.create_table('exercises',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=40), nullable=False),
@@ -49,29 +44,23 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE exercises SET SCHEMA {SCHEMA};")
     op.create_table('workouts',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('date', sa.String(length=10), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE workouts SET SCHEMA {SCHEMA};")
     op.create_table('exercise_sets',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('set_number', sa.Integer(), nullable=False),
     sa.Column('weight', sa.Integer(), nullable=True),
     sa.Column('reps', sa.Integer(), nullable=False),
-    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('date', sa.String(length=10), nullable=False),
     sa.Column('exercise_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['exercise_id'], ['exercises.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE exercise_sets SET SCHEMA {SCHEMA};")
     op.create_table('workout_exercises',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('workout_id', sa.Integer(), nullable=True),
@@ -80,8 +69,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['workout_id'], ['workouts.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE workout_exercises SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

@@ -45,6 +45,7 @@ export default function reducer(state = initialState, action) {
 
                 workout.date = strDate
                 workoutState.workouts[strDate] = workout
+                workoutState.workouts[workout.date] = workout
             });
 
             return workoutState
